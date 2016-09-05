@@ -11,7 +11,7 @@ GPIO.setwarnings(False)
 GPIO.setup(tilt,GPIO.IN)
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.bind((socket.gethostname(),port))
-serversocket.listen()
+serversocket.listen(3)
 
 connections = {}
 
