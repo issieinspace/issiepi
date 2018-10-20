@@ -14,7 +14,7 @@ pulse = 0
 distance = 0
 rpm = 0.00
 speed = 0.00
-wheel_c = 2
+wheel_c = 1
 multiplier = 0
 LED0 = 23
 LED1 = 24
@@ -30,6 +30,15 @@ GPIO.setup(hall, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 @app.route("/")
 def index():
         return render_template('speedo.html')
+
+@app.route('/init')
+def init():
+    global elapse, distance, start, pulse, speed, rpm, multiplier
+    distance = 0
+    rpm = 0
+    start = 0
+    pulse = 0
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/thing')
 def thing():
@@ -47,11 +56,11 @@ def thing():
 @app.route('/rpm_read')
 def rpm_read():
         def read_thing_state():
-                thing_state = { 'rpm' : get_rpm(),
-                                'speed' : get_speed(),
-                                'distance' : get_distance(),
-                                'elapse' : get_elapse(),
-                                'multiplier' : get_multiplier()  }
+                thing_state = { 'rpm': get_rpm(),
+                                'speed': get_speed(),
+                                'distance': get_distance(),
+                                'elapse': get_elapse(),
+                                'multiplier': get_multiplier()}
 
                 yield '{0}\n\n'.format(json.dumps(thing_state))
         return Response(read_thing_state(), mimetype='application/json')
