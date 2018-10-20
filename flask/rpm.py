@@ -48,7 +48,8 @@ def thing():
                                 'speed' : get_speed(),
                                 'distance' : get_distance(),
                                 'elapse' : get_elapse(),
-                                'multiplier' : get_multiplier()  }
+                                'multiplier' : get_multiplier(),
+                                'wheel_c': get_wheel_c()}
 
                 yield 'data:{0}\n\n'.format(json.dumps(thing_state))
         return Response(read_thing_state(), mimetype='text/event-stream')
@@ -60,7 +61,8 @@ def rpm_read():
                                 'speed': get_speed(),
                                 'distance': get_distance(),
                                 'elapse': get_elapse(),
-                                'multiplier': get_multiplier()}
+                                'multiplier': get_multiplier()
+                                'wheel_c': get_wheel_c()}
 
                 yield '{0}\n\n'.format(json.dumps(thing_state))
         return Response(read_thing_state(), mimetype='application/json')
@@ -89,6 +91,10 @@ def get_distance():
 
 def get_elapse():
     return elapse
+
+
+def get_wheel_c():
+    return wheel_c
 
 
 def get_multiplier():
