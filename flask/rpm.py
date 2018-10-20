@@ -38,6 +38,8 @@ def init():
     rpm = 0
     start = 0
     pulse = 0
+    speed = 0
+    multiplier = 0
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/thing')
